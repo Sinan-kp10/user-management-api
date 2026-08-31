@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
-import app from "./app.js";
-import pool from "./config/mysql.js";
-import connectMongoDB from "./config/mongodb.js";
+import app from "./app";
+import pool from "./config/mysql";
+import connectMongoDB from "./config/mongodb";
 
 dotenv.config();
 
