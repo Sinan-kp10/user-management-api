@@ -1,60 +1,9 @@
----
-marp: true
-theme: default
-paginate: true
-header: "User Management API | Dual-Database Hybrid Architecture"
-footer: "TypeScript • Express • MySQL • MongoDB • JWT"
-style: |
-  section {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 40px;
-    font-size: 22px;
-  }
-  h1 {
-    color: #1e3a8a;
-  }
-  h2 {
-    color: #2563eb;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 8px;
-  }
-  h3 {
-    color: #3b82f6;
-  }
-  table {
-    font-size: 18px;
-  }
-  pre {
-    font-size: 16px;
-  }
-  .highlight {
-    background-color: #eff6ff;
-    padding: 12px;
-    border-left: 4px solid #3b82f6;
-    border-radius: 4px;
-  }
----
 
 <!-- Slide 1: Title -->
 # 🚀 Enterprise User Management API
 ### Hybrid Dual-Database Architecture with RBAC & JWT Authentication
 
 **Built with TypeScript, Express.js, MySQL & MongoDB**
-
----
-
-### 📋 Agenda
-
-1. **Project Overview & Objectives**
-2. **Problem Statement & Architecture Motivation**
-3. **System Architecture & Clean Layered Design**
-4. **Hybrid Dual-Database Strategy (MySQL + MongoDB)**
-5. **Security, JWT Authentication & RBAC**
-6. **API Specifications & Route Hierarchy**
-7. **Implementation Deep Dive (Repository & Service Patterns)**
-8. **End-to-End Workflow & Demo Walkthrough**
-9. **Resilience, Consistency & Future Roadmap**
-10. **Conclusion & Q&A**
 
 ---
 
@@ -82,18 +31,6 @@ style: |
 | **Document Database** | **MongoDB (Mongoose 9.9)**| Flexible document store, fast retrieval, JSON-native schema |
 | **Security & Cryptography** | **Bcrypt + JWT** | Salted password hashing (10 rounds), signed tamper-proof tokens |
 | **Dev Tooling** | **ts-node-dev, dotenv** | Live hot-reloading, zero-transpile dev overhead, env isolation |
-
----
-
-<!-- Slide 4: Problem Statement -->
-## 🎯 Problem Statement & Motivation
-
-### Why Dual-Database?
-
-* **Relational Systems (MySQL):** Excel at strict schemas, referential integrity, ACID transactions, and deterministic queries.
-* **Document Systems (MongoDB):** Excel at unstructured/semi-structured user profile data, high read throughput, and rapid schema evolution.
-* **The Challenge:** How do we maintain structured user identities while enabling rich document-based user profiles across two distinct database paradigms?
-* **The Solution:** A synchronized **Dual-Write Repository Architecture** where MySQL issues the authoritative primary key (`id`) and MongoDB mirrors the entity linked via `mysqlId`.
 
 ---
 
@@ -317,8 +254,6 @@ export interface AuthRequest extends Request {
 }
 ```
 
----
-
 <!-- Slide 13: Project Structure -->
 ## 📁 Codebase Directory Structure
 
@@ -353,30 +288,6 @@ user-management-api/
 └── tsconfig.json             # TypeScript compiler settings
 ```
 
----
-
-<!-- Slide 14: Resilience & Future Roadmap -->
-## 📈 Resilience & Future Roadmap
-
-<div class="highlight">
-
-### 🔮 Opportunities for Enhancement
-
-1. **Transactional Outbox / Message Queue (RabbitMQ / Kafka):**
-   * Decouple dual writes to guarantee eventual consistency even during database downtime.
-2. **Refresh Token Rotation:**
-   * Implement short-lived Access Tokens (15m) + secure HTTP-only Refresh Tokens (7d).
-3. **Automated Unit & Integration Testing:**
-   * Jest / Supertest test suites with in-memory Mongo & MySQL mock containers.
-4. **API Documentation:**
-   * Interactive Swagger / OpenAPI UI specification at `/api-docs`.
-5. **Rate Limiting & Helmets:**
-   * `express-rate-limit` to prevent brute-force attacks on `/auth/login`.
-
-</div>
-
----
-
 <!-- Slide 15: Conclusion & Q&A -->
 ## 🎓 Summary & Key Takeaways
 
@@ -384,13 +295,3 @@ user-management-api/
 * **Enterprise Patterns:** Strict adherence to Repository, Service, and Layered Controller architectures.
 * **Production-Grade Security:** Encrypted passwords, stateless signed tokens, and role-based route protection.
 * **Maintainable & Typed:** 100% TypeScript coverage with clear interfaces and clean separation of concerns.
-
----
-
-# ❓ Questions & Discussion
-
-**Thank you for your time!**
-
-* **Repository:** User Management API
-* **Runtime:** Node.js + TypeScript
-* **Databases:** MySQL + MongoDB
