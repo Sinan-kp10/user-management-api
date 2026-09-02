@@ -1,11 +1,38 @@
 import { Router } from "express";
 import adminController from "../controllers/admin.controller";
+import authMiddleware from "../middleware/auth.middleware";
+import roleMiddleware from "../middleware/role.middleware";
 
 const router = Router();
 
-router.post("/users", adminController.createUser.bind(adminController))
-router.get("/users",adminController.getAllUsers.bind(adminController))
-router.get("/users/:id",adminController.getUserById.bind(adminController))
-router.put( "/users/:id",adminController.updateUser.bind(adminController))
-router.delete("/users/:id",adminController.deleteUser.bind(adminController))
+router.get("/users",
+  authMiddleware.authenticate.bind(authMiddleware),
+  roleMiddleware.adminOnly.bind(roleMiddleware),
+  adminController.getAllUsers.bind(adminController)
+);
+
+router.post("/users",
+  authMiddleware.authenticate.bind(authMiddleware),
+  roleMiddleware.adminOnly.bind(roleMiddleware),
+  adminController.createUser.bind(adminController)
+);
+
+router.get("/users/:id",
+  authMiddleware.authenticate.bind(authMiddleware),
+  roleMiddleware.adminOnly.bind(roleMiddleware),
+  adminController.getUserById.bind(adminController)
+);
+
+router.put("/users/:id",
+  authMiddleware.authenticate.bind(authMiddleware),
+  roleMiddleware.adminOnly.bind(roleMiddleware),
+  adminController.updateUser.bind(adminController)
+);
+
+router.delete("/users/:id",
+  authMiddleware.authenticate.bind(authMiddleware),
+  roleMiddleware.adminOnly.bind(roleMiddleware),
+  adminController.deleteUser.bind(adminController)
+);
+
 export default router;
