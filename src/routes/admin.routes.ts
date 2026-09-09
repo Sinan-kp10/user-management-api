@@ -2,6 +2,8 @@ import { Router } from "express";
 import adminController from "../controllers/admin.controller";
 import authMiddleware from "../middleware/auth.middleware";
 import roleMiddleware from "../middleware/role.middleware";
+import validationMiddleware from "../middleware/validation.middleware";
+import { registerSchema } from "../validations/auth.validation";
 
 const router = Router();
 
@@ -14,6 +16,7 @@ router.get("/users",
 router.post("/users",
   authMiddleware.authenticate.bind(authMiddleware),
   roleMiddleware.adminOnly.bind(roleMiddleware),
+   validationMiddleware.validate(registerSchema),
   adminController.createUser.bind(adminController)
 );
 

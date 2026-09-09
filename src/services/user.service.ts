@@ -13,33 +13,13 @@ interface CreateUserInput {
 class UserService {
 
   async createUser({name, email, password} : CreateUserInput) {
-
-    if (!name ) {
-      throw new Error("Name is required");
-    }
-
-    if (name.trim().length < 3) {
-      throw new Error("Name must be at least 3 characters");
-    }
-
-    if (!email) {
-      throw new Error("Email is required");
-    }
-
-    if (!password) {
-      throw new Error("Password is required");
-    }
-
-    if (password.length < 6) {
-      throw new Error("Password must be at least 6 characters");
-    }
     
     const isExist = await sqlUserRepository.findByEmail(email)
-     if (isExist) {
+    if (isExist) {
       throw new Error("User already exists");
     }
 
-    const hashedPassword = await bcrypt.hash(password,10);
+    const hashedPassword = await bcrypt.hash(password,10)
 
     const sqlUserData: CreateSqlUserData = {
       name: name,
