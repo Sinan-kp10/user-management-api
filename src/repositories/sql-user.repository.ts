@@ -34,7 +34,7 @@ class SqlUserRepository {
 
     async geAllUsers (): Promise<SqlUser[]>{
         const [rows] = await pool.execute<RowDataPacket[]>(
-            `SELECT  id, name, email, password, role, created_at, updated_at FROM users`
+            `SELECT  id, name, email, password, role FROM users`
         )
 
         return rows as SqlUser[]
@@ -43,7 +43,7 @@ class SqlUserRepository {
     async getUserById(id: number): Promise<SqlUser | null> {
 
         const [rows] = await pool.execute<RowDataPacket[]>(
-            `SELECT id, name, email, password, role, created_at, updated_at
+            `SELECT id, name, email, password, role
             FROM users
             WHERE id = ?`,
             [id]
@@ -59,7 +59,7 @@ class SqlUserRepository {
     async findByEmail(email: string): Promise<SqlUser | null> {
 
         const [rows] = await pool.execute<RowDataPacket[]>(
-            `SELECT id, name, email, password, role, created_at, updated_at
+            `SELECT id, name, email, password, role
             FROM users
             WHERE email = ?`,
             [email]
