@@ -29,6 +29,7 @@ router.get("/users/:id",
 router.put("/users/:id",
   authMiddleware.authenticate.bind(authMiddleware),
   roleMiddleware.adminOnly.bind(roleMiddleware),
+  validationMiddleware.validate(registerSchema),
   adminController.updateUser.bind(adminController)
 );
 

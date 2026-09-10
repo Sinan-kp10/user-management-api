@@ -78,17 +78,6 @@ class UserService {
 
   async updateUser( id: number, name: string, email: string) {
 
-    if (!name) {
-      throw new Error("Name is required");
-    }
-
-    if (name.trim().length < 3) {
-      throw new Error("Name must be at least 3 characters");
-    }
-
-    if (!email) {
-      throw new Error("Email is required");
-    }
 
     const existingUser = await sqlUserRepository.getUserById(id);
 
